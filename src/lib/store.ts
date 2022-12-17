@@ -1,0 +1,10 @@
+import type { FdpStorage } from "@fairdatasociety/fdp-storage";
+import { writable, type Writable } from "svelte/store";
+import type { Wallet } from "ethers";
+import type { Todo } from "./types";
+export let fdp: Writable<FdpStorage> = writable(undefined);
+export let wallet: Writable<Wallet> = writable(undefined);
+export let savedMnemonic = writable(false);
+export let todoItems: Writable<Todo[]> = writable([]);
+export let newTodo = writable("");
+export let user = writable("");
