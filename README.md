@@ -2,6 +2,11 @@
 
 An web3 Todos application built using `fdp-storage` and `fdp-play`.
 
+## TODO
+
+- bump fdp-storage version when released (currently uses "github:fairDataSociety/fdp-storage#fix/bee-js-762")
+- Make todos editable (https://github.com/fairDataSociety/fdp-storage/issues/192)
+
 ## Local Development Setup
 
 ### Prerequisites:
@@ -74,3 +79,5 @@ The application can be viewed at - http://localhost:5173/
 ### Todo List:
 
 ![image](https://user-images.githubusercontent.com/520570/208270618-9c76eea5-6cd5-4f8c-9334-2d2e909eb4c1.png)
+
+
