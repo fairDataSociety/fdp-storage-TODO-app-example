@@ -65,7 +65,7 @@ Update the `VITE_POSTAGE_BATCH_ID` in your `.env` file with the "batchId" return
 **Requirements:** `fdp-play` must be running already! 
 
 ```shell
-$ npm dev
+$ npm run dev
 ```
 
 The application can be viewed at - http://localhost:5173/ 
