@@ -50,11 +50,10 @@ The application can be viewed at - http://localhost:5173/
 
 ## Screenshots
 
-### Login / Import Wallet Page
+### Login / Import Wallet Page:
 
 ![image](https://user-images.githubusercontent.com/520570/208269899-938b86b0-2ce9-4def-b1a6-b6050b549065.png)
 
-### Todo List
+### Todo List:
 
-![image](https://user-images.githubusercontent.com/520570/208269979-de28fc94-79c7-4274-9fe0-67d184859ebe.png)
-
+![image](https://user-images.githubusercontent.com/520570/208270618-9c76eea5-6cd5-4f8c-9334-2d2e909eb4c1.png)
