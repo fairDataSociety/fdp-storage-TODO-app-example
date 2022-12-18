@@ -22,6 +22,7 @@
     "@fairdatasociety/fdp-storage": "github:fairDataSociety/fdp-storage#fix/bee-js-762",
     "ethers": "^5.7.2",
     "file-saver": "^2.0.5",
+    "moment": "^2.29.4",
     "simpledotcss": "^2.1.1",
     "svelte-spa-router": "^3.3.0"
   }

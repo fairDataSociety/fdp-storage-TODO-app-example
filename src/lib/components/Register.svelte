@@ -1,8 +1,9 @@
 <script lang="ts">
-    import { fdp, wallet } from "../store";
+    import { fdp, user, wallet } from "../store";
     import { registerAccount } from "../utils";
     let username = "";
     let password = "";
+    let registering = false;
 </script>
 
 <form class="notice">
@@ -27,10 +28,12 @@
             />
         </label>
         <button
-            disabled={username == "" || password == ""}
-            on:click|preventDefault={() =>
-                registerAccount(username, password, $wallet.address, $fdp)}
-            >Register</button
+            disabled={username == "" || password == "" || registering}
+            on:click|preventDefault={async() => { 
+                registering = true;
+                $user = await registerAccount(username, password, $wallet.address, $fdp)
+            }}
+            >{#if registering}Registering...{:else}Register{/if}</button
         >
     </fieldset>
 </form>

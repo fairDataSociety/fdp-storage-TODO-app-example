@@ -11,6 +11,7 @@
   import type { Todo } from "../types";
   import {
     addTodo,
+    ago,
     deleteTodo,
     ENTER_KEY,
     saveMnemonic,
@@ -72,7 +73,7 @@
           <th>id</th>
           <th>todo</th>
           <th>done</th>
-          <th>created at</th>
+          <th>created</th>
           <th>Delete</th>
         </tr>
         {#each $todoItems as todo, idx (todo.id)}
@@ -91,7 +92,7 @@
                 bind:checked={todo.done}
               /></td
             >
-            <td>{todo.createdAt}</td>
+            <td>{ago(todo.createdAt)}</td>
             <td
               ><button
                 on:click={async () => {

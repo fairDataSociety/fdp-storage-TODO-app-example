@@ -4,9 +4,9 @@ import { utils } from "ethers";
 import { saveAs } from "file-saver";
 import { get } from "svelte/store";
 import { config } from "./config";
-import { fdp, savedMnemonic, todoItems } from "./store";
+import { fdp, savedMnemonic, todoItems, user } from "./store";
 import type { Todo } from "./types";
-
+import moment from 'moment';
 export const saveMnemonic = async (phrase:string, filename = "mnemonic.json")=>{
     var blob = new Blob(
         [JSON.stringify({ mnemonic: phrase })],
@@ -19,7 +19,6 @@ export const saveMnemonic = async (phrase:string, filename = "mnemonic.json")=>{
 }
 
 export const initTodos = async (fdp: FdpStorage)=>{
-    console.log("initTodos")
     const appPod = await fdp.personalStorage.create(config.todoAppNamespace);
     console.log(`AppPod ${config.todoAppNamespace}`,{appPod});
     fdp.directory.create(config.todoAppNamespace, config.todoItemsDirectory).then(async ()=>{
@@ -43,7 +42,6 @@ export const getTodoItems = async (fdp: FdpStorage) => {
   };
 
 export const addTodo = async (todo:Todo, fdp:FdpStorage, todos: Todo[])=>{
-    console.log(fdp);
     return fdp.file.uploadData(
       config.todoAppNamespace,
       `${config.todoItemsDirectory}/todo_${todo.id}.json`,
@@ -54,7 +52,6 @@ export const addTodo = async (todo:Todo, fdp:FdpStorage, todos: Todo[])=>{
     });
   }
   export const deleteTodo = (deleteTodo: Todo, fdp:FdpStorage, todos: Todo[]) => {
-    console.log({fdp});
     return fdp.file
       .delete(config.todoAppNamespace, `${config.todoItemsDirectory}/todo_${deleteTodo.id}.json`)
       .then(() => todos.filter((todo)=> todo.id != deleteTodo.id));
@@ -83,17 +80,15 @@ export const addTodo = async (todo:Todo, fdp:FdpStorage, todos: Todo[])=>{
       });
   }
   export const registerAccount = async (username:string,password:string, address:string, fdp:FdpStorage) => {
-    console.log({username,password,address});
-    topUpAddress(fdp,address).then(async ()=>{
+    return topUpAddress(fdp,address).then(async ()=>{
         const ref = await fdp.account.register(username,password);
-        console.log({ref});
+        return username;
     });
   }
   export const loginAccount = (username: string, password: string, fdp: FdpStorage) => {
     return fdp.account.login(username,password);
   }
   export async function topUpAddress(fdp: FdpStorage, address: string, amountInEther = '0.01'): Promise<void> {
-    console.log({fdp});
     const ens = fdp.ens
     const accounts = await ens.provider.listAccounts();
     const balances = [];
@@ -112,9 +107,12 @@ export const addTodo = async (todo:Todo, fdp:FdpStorage, todos: Todo[])=>{
         value: utils.hexlify(utils.parseEther(amountInEther)),
       },
     ])
-  
     await ens.provider.waitForTransaction(txHash);
     console.log({txHash});
+}
+export const ago = (date:number)=>{
+  //@ts-ignore
+  return moment(date, false).fromNow()
 }
 export const ENTER_KEY = 13;
 export const ESCAPE_KEY = 27;

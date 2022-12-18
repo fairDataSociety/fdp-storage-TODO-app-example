@@ -3,7 +3,7 @@
   import { FdpStorage } from "@fairdatasociety/fdp-storage";
   import Home from "./lib/components/Home.svelte";
   import Todos from "./lib/components/Todos.svelte";
-  import { fdp, user, wallet } from "./lib/store";
+  import { fdp, todoItems, user, wallet } from "./lib/store";
   import { config } from "./lib/config";
   onMount(() => {
     $fdp = new FdpStorage("http://localhost:1633", config.postageBatchId);
@@ -63,9 +63,10 @@
       <strong>User: <code>{$user}</code></strong><br /><button
         on:click|preventDefault={() => {
           $wallet = null;
+          $todoItems = [];
           $user = "";
           console.log();
-          $fdp.account;
+          $fdp.account.wallet = null;
         }}>Logout</button
       >
     </p>
