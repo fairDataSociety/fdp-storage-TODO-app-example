@@ -2,7 +2,7 @@
 
 An web3 Todos application built using `fdp-storage` and `fdp-play`.
 
-## TODO
+## Roadmap
 
 - improve dx w.r.t initial setup and env
 - improve ui/ux
