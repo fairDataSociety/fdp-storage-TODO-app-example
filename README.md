@@ -1,6 +1,6 @@
 # Todos with `fdp-storage` and `fdp-play`
 
-An web3 Todos application built using `fdp-storage` and `fdp-play`.
+A web3 Todos application built using `fdp-storage` and `fdp-play`.
 
 ## Roadmap
 
