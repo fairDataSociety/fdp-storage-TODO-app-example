@@ -6,7 +6,7 @@
   import { fdp, todoItems, user, wallet } from "./lib/store";
   import { config } from "./lib/config";
   onMount(() => {
-    $fdp = new FdpStorage("http://localhost:1633", config.postageBatchId);
+    $fdp = new FdpStorage(config.beeUrl, config.postageBatchId);
   });
 </script>
 
