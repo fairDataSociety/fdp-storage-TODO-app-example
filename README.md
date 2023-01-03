@@ -34,7 +34,7 @@ $ fdp-play start --fairos
 
 #### Clone the repo
 ```shell
-$ git clone https://github.com/rampall/fdp-storage-todos.git
+$ git clone https://github.com/fairDataSociety/fdp-storage-TODO-app-example.git
 ```
 
 ```shell
