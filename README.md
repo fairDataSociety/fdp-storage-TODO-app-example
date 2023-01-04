@@ -13,7 +13,7 @@ A web3 Todos application built using `fdp-storage` and `fdp-play`.
 
 ### Prerequisites:
 
-- `node` and `npm` must be installed
+- `node >= 16` and `npm` must be installed
 - docker must be installed
 - the following ports must be free and available for FDP Play to use
     - **1634** and **1635** - for the queen bee node
