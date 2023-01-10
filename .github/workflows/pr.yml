@@ -9,11 +9,6 @@ jobs:
   build:
     name: Pull Request Check
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [18.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
     - name: checkout
       uses: actions/checkout@v3
@@ -22,22 +17,25 @@ jobs:
     - name: Use Node.js ${{ matrix.node-version }}
       uses: pnpm/action-setup@v2
       with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
         version: 7
-    - name: Get npm cache directory
-      id: npm-cache-dir
+        run_install: false
+
+    - name: Get pnpm store directory
+      id: pnpm-cache
+      shell: bash
       run: |
-        echo "::set-output name=dir::$(npm config get cache)"
+        echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
     - uses: actions/cache@v3
-      id: npm-cache # use this to check for `cache-hit` ==> if: steps.npm-cache.outputs.cache-hit != 'true'
+      name: Setup pnpm cache
       with:
-        path: ${{ steps.npm-cache-dir.outputs.dir }}
-        key: ${{ runner.os }}-node-${{ hashFiles('**/pnpm-lock.yaml') }}
+        path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+        key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
         restore-keys: |
-          ${{ runner.os }}-node-
-    - name: install
-      run: npm install
+          ${{ runner.os }}-pnpm-store-
+
+    - name: Install dependencies
+      run: pnpm install
     - name: build
       run: npm run build
       env:
