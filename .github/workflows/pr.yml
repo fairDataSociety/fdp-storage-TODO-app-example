@@ -33,12 +33,9 @@ jobs:
       id: npm-cache # use this to check for `cache-hit` ==> if: steps.npm-cache.outputs.cache-hit != 'true'
       with:
         path: ${{ steps.npm-cache-dir.outputs.dir }}
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        key: ${{ runner.os }}-node-${{ hashFiles('**/pnpm-lock.yaml') }}
         restore-keys: |
           ${{ runner.os }}-node-
-    - name: Install npm deps
-      if: steps.npm-cache.outputs.cache-hit != 'true'
-      run: npm ci --cache .npm
     - name: install
       run: npm install
     - name: build
