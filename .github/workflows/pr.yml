@@ -24,6 +24,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+        version: 7
     - name: Get npm cache directory
       id: npm-cache-dir
       run: |
