@@ -1,0 +1,42 @@
+name: PR
+
+on:
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  build:
+    name: Pull Request Check
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: pnpm/action-setup@v2
+      with:
+        version: 7
+        run_install: false
+
+    - name: Get pnpm store directory
+      id: pnpm-cache
+      shell: bash
+      run: |
+        echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+    - uses: actions/cache@v3
+      name: Setup pnpm cache
+      with:
+        path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+        key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pnpm-store-
+
+    - name: Install dependencies
+      run: pnpm install
+    - name: build
+      run: npm run build
+      env:
+        CI: false
